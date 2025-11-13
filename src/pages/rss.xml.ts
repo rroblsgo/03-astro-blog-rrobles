@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 export const GET: APIRoute = async ({ params, request, site }) => {
   const blogPosts = await getCollection("blog");
   return rss({
-    // stylesheet: "/styles/rss.xsl",
+    stylesheet: "/styles/rss.xsl",
     // `<title>` field in output xml
     title: "Robles Blog",
     // `<description>` field in output xml
