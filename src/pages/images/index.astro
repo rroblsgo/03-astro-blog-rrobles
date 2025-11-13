@@ -1,0 +1,85 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+import post05Img from '@/assets/images/post-05.png';
+import { Picture } from 'astro:assets';
+---
+
+<MainLayout title="imágenes">
+  <h1 class="text-5xl text-white mb-2">Página con imágenes</h1>
+  <h3 class="mt-2">Con img, desde public/assets/images - post-05</h3>
+  <img
+    loading="eager"
+    src="/assets/images/post-05.png"
+    alt="post-05"
+    width="250"
+    height="250"
+  />
+
+  <h3 class="mt-2">Con Image, desde public/assets/images - post-05</h3>
+  <Image
+    loading="eager"
+    src="/assets/images/post-05.png"
+    alt="post-05"
+    width="250"
+    height="250"
+  />
+
+  <h3 class="mt-2">Con Image, desde src/assets/images - post-05</h3>
+  <Image
+    loading="eager"
+    src={post05Img}
+    alt="post-05"
+    width="250"
+    height="250"
+  />
+
+  <!-- <Image
+    loading="eager"
+    src={post05Img}
+    alt="post-05"
+    style="{{ width: '25px', height: '25px' }}"
+  /> -->
+
+  <!-- quality low -->
+  <!-- <Image
+    quality="low"
+    loading="eager"
+    src={post05Img}
+    alt="post-05"
+    width="250"
+    height="250"
+  /> -->
+
+  <!-- formatos -->
+  <!-- <Image
+    loading="eager"
+    format="avif"
+    src={post05Img}
+    alt="post-05"
+    width="250"
+    height="250"
+  /> -->
+
+  <!-- Picture -->
+
+  <Picture
+    loading="eager"
+    formats={['jpeg', 'webp', 'avif']}
+    src={post05Img}
+    widths={[240, 540, 720, post05Img.width]}
+    sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${post05Img.width}px`}
+    alt="post-05"
+    width="250"
+    height="250"
+  />
+
+  <div style={{ height: '3000px' }}></div>
+  <img
+    loading="lazy"
+    src="/assets/images/post-02.png"
+    alt="post-02"
+    width="300"
+    height="150"
+  />
+</MainLayout>

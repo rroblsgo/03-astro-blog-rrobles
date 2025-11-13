@@ -1,0 +1,41 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import { siteConfig } from '@/config/site-config.ts';
+import { getCollection } from 'astro:content';
+import TypedBlogPost from '@/components/TypedBlogPost.astro';
+
+const blogPosts0 = await getCollection(
+  'blog',
+  (post) => post.data.isDraft === false
+);
+const blogPosts = blogPosts0.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+// console.log('blogPosts:', blogPosts);
+---
+
+<MainLayout title="Astro Blog | Home">
+  <section class="bg-gray-900">
+    <div class="container px-6 py-10 mx-auto">
+      <h1 class="text-3xl font-semibold capitalize lg:text-4xl text-white">
+        {siteConfig.title}
+      </h1>
+
+      <a href="/blog/1" class="text-white mr-2">Blog Paginado</a>
+      <a href="/authors" class="text-white mr-2">Autores</a>
+
+      <div
+        class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2 text-white"
+      >
+        {blogPosts.map((post) => <TypedBlogPost post={post} />)}
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  @reference "@/styles/global.css";
+  a {
+    @apply text-blue-500 hover:underline cursor-pointer;
+  }
+</style>
