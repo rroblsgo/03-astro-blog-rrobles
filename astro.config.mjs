@@ -21,5 +21,5 @@ export default defineConfig({
   },
 
   integrations: [mdx()],
-  site: "https://your-domain.com",
+  site: "https://03-astro-blog-rrobles.netlify.app/",
 });
