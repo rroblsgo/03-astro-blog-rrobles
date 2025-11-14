@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import TypedBlogPost from '@/components/TypedBlogPost.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
+import '@/styles/global.css';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const blogPosts = (await getCollection('blog')).sort(
@@ -14,12 +15,13 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 ---
 
-<MainLayout>
+<MainLayout title="Astro Blog | Listado Paginado">
   <section class="bg-gray-900" aria-label="Entradas de blog">
     <div class="container px-6 py-10 mx-auto">
-      <h1 class="text-3xl font-semibold capitalize lg:text-4xl text-white">
+      <h1 class="text-3xl font-semibold capitalize lg:text-4xl text-white mb-2">
         Robles Awesome Blog paginado
       </h1>
+      <a href="/" class="text-blue-500 hover:underline">Home Page</a>
       <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2 p-4">
         {page.data.map((post) => <TypedBlogPost post={post} />)}
       </div>
@@ -29,29 +31,34 @@ const { page } = Astro.props;
       <!--   page .. ?? prev   -->
       <a
         href={page.url.prev}
-        class:list={{
-          disabled: !page.url.prev,
-        }}>Anteriores</a
+        class:list={[
+          { link: true },
+          {
+            disabled: !page.url.prev,
+          },
+        ]}>Anteriores</a
       >
 
       <!--   page .. ?? next   -->
       <a
         href={page.url.next}
-        class:list={{
-          disabled: !page.url.next,
-        }}>Siguientes</a
+        class:list={[
+          { link: true },
+          {
+            disabled: !page.url.next,
+          },
+        ]}>Siguientes</a
       >
     </section>
+
+    <style>
+      @reference "@/styles/global.css";
+      .link {
+        @apply bg-blue-500 text-white p-2 m-2 rounded hover:bg-blue-600 cursor-pointer;
+      }
+      .disabled {
+        @apply bg-gray-400 hover:bg-gray-400;
+      }
+    </style>
   </section>
-
-  <style>
-    @reference "@/styles/global.css";
-    a {
-      @apply bg-blue-500 text-white p-2 rounded hover:bg-blue-600 cursor-pointer;
-    }
-
-    .disabled {
-      @apply bg-gray-600 hover:bg-gray-600;
-    }
-  </style>
 </MainLayout>
